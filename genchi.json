@@ -1,0 +1,363 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Webservice eventos GENCHI",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "https://api.genchi.test/v1",
+            "description": "Webservice de pruebas"
+        },
+        {
+            "url": "https://api.genchi/v1",
+            "description": "Webservice de producción"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "evento": {
+                "properties": {
+                    "numero": {
+                        "description": "Numero del evento [Eventos.NroEvento]",
+                        "type": "integer",
+                        "format": "default"
+                    },
+                    "fecha": {
+                        "description": "Fecha del evento [Eventos.Fecha]",
+                        "type": "string",
+                        "format": "Y-m-d"
+                    },
+                    "hecho": {
+                        "description": "Hecho [Eventos:Hecho]",
+                        "type": "string"
+                    },
+                    "descripcion": {
+                        "description": "Describe el evento [Eventos.Descripcion]",
+                        "type": "string"
+                    },
+                    "observacion": {
+                        "description": "Observación del evento [Eventos.Observacion]",
+                        "type": "string"
+                    },
+                    "documento": {
+                        "description": "Documento asociado al evento",
+                        "properties": {
+                            "numero": {
+                                "description": "Número del documento [Eventos.NroDocumento]",
+                                "type": "integer"
+                            },
+                            "codigo": {
+                                "description": "Codigo del tipo de documento [TiposDocumentos.Codigo]",
+                                "type": "integer"
+                            },
+                            "descripcion": {
+                                "description": "Descripción del tipo de documento [TiposDocumentos.Descripcion]",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "region": {
+                        "description": "Región donde ocurrio el evento",
+                        "properties": {
+                            "codigo": {
+                                "description": "Código de la región [Region:Codigo]",
+                                "type": "integer"
+                            },
+                            "descripcion": {
+                                "description": "Descipción de la región [Region.Descripcion]",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "unidad": {
+                        "description": "Unidad en la que ocurrio el evento",
+                        "properties": {
+                            "codigo": {
+                                "description": "Código de la unidad [Unidad.Codigo]",
+                                "type": "integer"
+                            },
+                            "descripcion": {
+                                "description": "Descripción de la unidad [Unidad.Descripcion]",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "dependencia": {
+                        "description": "Dependencia donde ocurrio el evento",
+                        "properties": {
+                            "codigo": {
+                                "description": "Código de la dependencia [Dependencia.Codigo]",
+                                "type": "integer"
+                            },
+                            "descripcion": {
+                                "description": "Descripción de la dependencia [Dependencia.Descripcion]",
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "interno": {
+                        "description": "Lista de internos asociados al evento",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/interno"
+                        },
+                        "minItems": 1
+                    },
+                    "funcionario": {
+                        "description": "Lista de funcionarios involucrados en el evento, uno o más",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/funcionario"
+                        }
+                    },
+                    "accion": {
+                        "description": "Lista de acciones ejecutadas sobre el evento",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/accion"
+                        }
+                    },
+                    "sancion": {
+                        "description": "Listado de sanciones asociadas al evento",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/sancion"
+                        }
+                    }
+                },
+                "example": {
+                    "numero": 8999,
+                    "fecha": "2021-01-31",
+                    "hecho": "Incidente",
+                    "descripcion": "Descripción del evento",
+                    "observacion": "Observación del evento",
+                    "documento": {
+                        "numero": 5555,
+                        "codigo": 909,
+                        "descripcion": "Descripción del documento"
+                    },
+                    "region": {
+                        "codigo": 10,
+                        "descripcion": "Región de los lagos"
+                    },
+                    "unidad": {
+                        "codigo": 33,
+                        "descripcion": "Descripción de unidad 33"
+                    },
+                    "dependencia": {
+                        "codigo": 88,
+                        "descripcion": "Descripción dependencia 88"
+                    },
+                    "interno": [
+                        {
+                            "rut": "11111111-1",
+                            "nombre": "Interno uno",
+                            "apellido": "Apellido interno",
+                            "edad": 34,
+                            "genero": "M",
+                            "calidadProcesal": "",
+                            "nacionalidad": "Chilena"
+                        }
+                    ],
+                    "funcionario": [
+                        {
+                            "rut": "2222222-2",
+                            "nombre": "Nombre funcionario",
+                            "apellido": "Apellido funcionario",
+                            "cargo": "Cargo"
+                        }
+                    ],
+                    "accion": [
+                        {
+                            "identificador": 9998,
+                            "tipo": 76,
+                            "descripcion": "Descripción acción"
+                        }
+                    ],
+                    "sancion": [
+                        {
+                            "identificador": 765,
+                            "codigo": 56,
+                            "descripcion": "Descripción de la sanción",
+                            "dias": 2,
+                            "fechaInicio": "2021-03-23",
+                            "fechaTermino": "2021-03-25",
+                            "fechaResolucion": "2021-03-20",
+                            "numeroResolucion": 2333,
+                            "nombreFirma": "Nombre firmante resolución",
+                            "cargoFirma": "Cargo firmante",
+                            "funcionFirma": "Función firmante",
+                            "fechaFirmaResolucion": "2021-03-21",
+                            "estadoFirmaResolucion": 2
+                        }
+                    ]
+                }
+            },
+            "interno": {
+                "description": "Interno involucrado en el evento",
+                "properties": {
+                    "rut": {
+                        "description": "Rut del interno [Internos.Run]",
+                        "type": "string"
+                    },
+                    "nombre": {
+                        "description": "Nombre del interno [Internos.Nombre]",
+                        "type": "string"
+                    },
+                    "apellido": {
+                        "description": "Apellido del interno [Internos.Apellidos]",
+                        "type": "string"
+                    },
+                    "edad": {
+                        "description": "Edad del iterno [Internos.Edad]",
+                        "type": "integer"
+                    },
+                    "genero": {
+                        "description": "Genero del interno [Internos.Genero]",
+                        "type": "string"
+                    },
+                    "calidadProcesal": {
+                        "description": "Calidad procesal del interno [Internos.CalidadProcesal]",
+                        "type": "string"
+                    },
+                    "nacionalidad": {
+                        "description": "Nacionalidad del interno [Internos.Nacionalidad]",
+                        "type": "string"
+                    }
+                }
+            },
+            "funcionario": {
+                "description": "Funcionario asociado al evento",
+                "properties": {
+                    "rut": {
+                        "description": "Rut del funcionario [Funcionarios.Run]",
+                        "type": "string"
+                    },
+                    "nombre": {
+                        "description": "Nombre del funcionario [Funcionarios.Nombre]",
+                        "type": "string"
+                    },
+                    "apellido": {
+                        "description": "Apellido del funcionario [Funcionarios.Apellidos]",
+                        "type": "string"
+                    },
+                    "cargo": {
+                        "description": "Cargo del funcionario [Funcionarios.Cargo]",
+                        "type": "string"
+                    }
+                }
+            },
+            "accion": {
+                "description": "Accion realizada sobre el evento",
+                "properties": {
+                    "identificador": {
+                        "description": "Identificado único de la acción [Acciones.IdentificadorAccion]",
+                        "type": "integer"
+                    },
+                    "tipo": {
+                        "description": "Tipo de la acción [Acciones.IdentificadorTipoAccion]",
+                        "type": "integer"
+                    },
+                    "descripcion": {
+                        "description": "Descripción de la acción [Acciones.Descripcion]",
+                        "type": "string"
+                    }
+                }
+            },
+            "sancion": {
+                "description": "Sanción ejecutada sobre el evento",
+                "properties": {
+                    "identificador": {
+                        "description": "Identificador único de la sanción [Sancion.IdentificadorSancion]",
+                        "type": "integer"
+                    },
+                    "codigo": {
+                        "description": "Código de la sanción [Sancion.CodigoSancion]",
+                        "type": "integer"
+                    },
+                    "descripcion": {
+                        "description": "Descripción de la sanción según código [DescripcionSanciones.Descripcion]",
+                        "type": "string"
+                    },
+                    "dias": {
+                        "description": "Días de duración de la sanción [Sancion.Dias]",
+                        "type": "integer"
+                    },
+                    "fechaInicio": {
+                        "description": "Fecha de inicio sanción [Sancion.FechaInicio]",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "fechaTermino": {
+                        "description": "Fecha de termino de la sanción [Sancion.FechaTermino]",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "fechaResolucion": {
+                        "description": "Fecha resolución acción [Sancion.FechaResolucion]",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "numeroResolucion": {
+                        "description": "Número de la resolución [Sancion.NroResolucion]",
+                        "type": "integer"
+                    },
+                    "nombreFirma": {
+                        "description": "Nombre persona que firma la resolucion [Sancion.NombreFirma]",
+                        "type": "string"
+                    },
+                    "cargoFirma": {
+                        "description": "Cargo persona que firma la resolución [Sancion.CargoFirma]",
+                        "type": "string"
+                    },
+                    "funcionFirma": {
+                        "description": "Función persona que firma la resolución [Sancion.FuncionFirma]",
+                        "type": "string"
+                    },
+                    "fechaFirmaResolucion": {
+                        "description": "Fecha en la que se firma la resolución [FirmarResolucion.FechaFirma]",
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "estadoFirmaResolucion": {
+                        "description": "Estado de la firma de la resolución [FirmarResolucion.Estado]",
+                        "type": "integer"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/events": {
+            "get": {
+                "description": "Devuelve listado de eventos",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/evento"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Error en la solicitud",
+                        "content": {
+                            "application/json": {}
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {}
+    ]
+}
